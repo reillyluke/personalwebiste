@@ -22,19 +22,35 @@ $(document).ready(function () {
     })
   }
 
-  var $acc = $(".accordion-item")
+  var $acc = $(".accordion-item");
 
-  for (var i = 0; i < $acc.length; ++i) {
-    $acc.eq(i).click(function () {
-      $acc.addClass("inactive");
-      $(this).removeClass("inactive");
+  for (var l = 0; l < $acc.length; ++l) {
+    $(".mobile-panel").eq(l).html($(".panel-content").eq(1).html());
+  }
 
-      for (var panelnum = 0; panelnum < $acc.length; ++panelnum) {
-        if ($acc.eq(panelnum).hasClass("inactive") == false) {
-          $(".panel").addClass("inactive");
-          $(".panel").eq(panelnum).removeClass("inactive");
+  if ($(window).width() > 576) {
+
+    for (var i = 0; i < $acc.length; ++i) {
+      $acc.eq(i).click(function () {
+        $acc.addClass("inactive");
+        $(this).removeClass("inactive");
+
+        for (var panelnum = 0; panelnum < $acc.length; ++panelnum) {
+          if ($acc.eq(panelnum).hasClass("inactive") == false) {
+            $(".panel").addClass("inactive");
+            $(".panel").eq(panelnum).removeClass("inactive");
+          }
         }
-      }
+      })
+    }
+  }
+
+  else {
+    $acc.addClass("inactive");
+
+    $acc.click(function () {
+      $(this).next().slideToggle().css("border","thin solid #E0E0E0");
+      $(this).toggleClass("inactive");
     })
   }
 });
